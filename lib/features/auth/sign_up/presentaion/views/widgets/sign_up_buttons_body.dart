@@ -1,0 +1,31 @@
+import 'package:bariy_alshamal/core/themes/text_styles.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../../../core/localization/generated/l10n.dart';
+import '../../../../../../core/themes/button_styles.dart';
+
+class SignUpButtonsBody extends StatelessWidget {
+  const SignUpButtonsBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Language language = Language.of(context);
+
+    return Column(
+      children: [
+        ElevatedButton(
+          onPressed: () {},
+          style: ButtonStyles.bsP,
+          child: Text(language.create_account, style: TextStyles.tsW15B),
+        ),
+        SizedBox(height: 10.h),
+        ElevatedButton(
+          onPressed: () {},
+          style: ButtonStyles.bsT,
+          child: Text(language.already_have_account, style: TextStyles.tsP15B),
+        )
+      ],
+    );
+  }
+}
