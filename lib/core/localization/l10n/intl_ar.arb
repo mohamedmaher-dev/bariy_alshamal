@@ -1,0 +1,20 @@
+{
+    "user_name" : "اسم المستخدم",
+    "phone_number" : "رقم الهاتف",
+    "create_account" : "انشاء حساب",
+    "sign_in" : "تسجيل الدخول",
+    "already_have_account" : "لدي حساب بالفعل",
+    "dont_have_account" : "ليس لدي حساب",
+    "welcome" : "مرحبا",
+    "welcome_back" : "اهلا بك",
+    "sign_up_msg1" : "نحن سعداء لنضمامك الينا ..",
+    "sign_up_msg2" : "نتمني لك تجربه سعيدة",
+    "slogan" : "ذبيحتك تصل الي بيتك",
+    "sign_in_msg1" : "نحن سعداء بعودتك مجددا",
+    "sign_in_msg2" : "نتمني لك تجربه سعيدة",
+    "phone_number_confirm" : "تأكيد رقم الهاتف",
+    "write_the_code" : "قم بكتابة الكود الذي وصل اليك في رسالة",
+    "wrong_phone" : "الرقم غير صحيح"
+
+
+}
