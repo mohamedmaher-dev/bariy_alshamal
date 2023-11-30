@@ -35,6 +35,7 @@ abstract class TextStyles {
     fontSize: 15.sp,
     fontWeight: FontWeight.normal,
   );
+
   static TextStyle tsW12N = TextStyle(
     color: ColorsManger.white,
     fontSize: 12.sp,
@@ -51,6 +52,11 @@ abstract class TextStyles {
     fontSize: 15.sp,
     fontWeight: FontWeight.bold,
   );
+  static TextStyle tsW12B = TextStyle(
+    color: ColorsManger.white,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.bold,
+  );
 
   static TextStyle tsW10B = TextStyle(
     color: ColorsManger.white,
@@ -64,12 +70,39 @@ abstract class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
+  static TextStyle tsP12B = TextStyle(
+    color: ColorsManger.green,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle tsP10B = TextStyle(
+    color: ColorsManger.green,
+    fontSize: 10.sp,
+    fontWeight: FontWeight.bold,
+  );
+
   static TextStyle tsG15B = TextStyle(
     fontSize: 15.sp,
     fontWeight: FontWeight.bold,
     color: ColorsManger.gold,
   );
+  static TextStyle tsG20B = TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeight.bold,
+    color: ColorsManger.gold,
+  );
 
+  static TextStyle tsG10B = TextStyle(
+    fontSize: 10.sp,
+    fontWeight: FontWeight.bold,
+    color: ColorsManger.gold,
+  );
+  static TextStyle tsR10B = TextStyle(
+    color: ColorsManger.red,
+    fontSize: 10.sp,
+    fontWeight: FontWeight.bold,
+  );
   static TextStyle tsR15N = TextStyle(
     color: ColorsManger.red,
     fontSize: 15.sp,
