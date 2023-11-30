@@ -14,7 +14,12 @@
     "sign_in_msg2" : "نتمني لك تجربه سعيدة",
     "phone_number_confirm" : "تأكيد رقم الهاتف",
     "write_the_code" : "قم بكتابة الكود الذي وصل اليك في رسالة",
-    "wrong_phone" : "الرقم غير صحيح"
+    "wrong_phone" : "الرقم غير صحيح",
+    "home" : "الرئيسية",
+    "my_account" : "حسابي",
+    "cart" : "السلة",
+    "my_orders" : "طلباتي",
+    "order_now" : "اطلب الان"
 
 
 }

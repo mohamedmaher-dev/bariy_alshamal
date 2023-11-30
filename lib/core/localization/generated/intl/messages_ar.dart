@@ -24,9 +24,14 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "already_have_account":
             MessageLookupByLibrary.simpleMessage("لدي حساب بالفعل"),
+        "cart": MessageLookupByLibrary.simpleMessage("السلة"),
         "create_account": MessageLookupByLibrary.simpleMessage("انشاء حساب"),
         "dont_have_account":
             MessageLookupByLibrary.simpleMessage("ليس لدي حساب"),
+        "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
+        "my_account": MessageLookupByLibrary.simpleMessage("حسابي"),
+        "my_orders": MessageLookupByLibrary.simpleMessage("طلباتي"),
+        "order_now": MessageLookupByLibrary.simpleMessage("اطلب الان"),
         "phone_number": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
         "phone_number_confirm":
             MessageLookupByLibrary.simpleMessage("تأكيد رقم الهاتف"),

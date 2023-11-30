@@ -209,6 +209,56 @@ class Language {
       args: [],
     );
   }
+
+  /// `الرئيسية`
+  String get home {
+    return Intl.message(
+      'الرئيسية',
+      name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `حسابي`
+  String get my_account {
+    return Intl.message(
+      'حسابي',
+      name: 'my_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `السلة`
+  String get cart {
+    return Intl.message(
+      'السلة',
+      name: 'cart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `طلباتي`
+  String get my_orders {
+    return Intl.message(
+      'طلباتي',
+      name: 'my_orders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `اطلب الان`
+  String get order_now {
+    return Intl.message(
+      'اطلب الان',
+      name: 'order_now',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Language> {
