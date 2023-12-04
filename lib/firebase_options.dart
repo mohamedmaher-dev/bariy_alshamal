@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,39 +49,20 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCByq_LktoXtV2D_S3FVQXu40bYaWsk_ho',
-    appId: '1:705514656831:web:992a591aa6feea3166548a',
-    messagingSenderId: '705514656831',
-    projectId: 'bariy-alshamal',
-    authDomain: 'bariy-alshamal.firebaseapp.com',
-    storageBucket: 'bariy-alshamal.appspot.com',
-    measurementId: 'G-XJVVN1KV13',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDdSMYfcuOipppxwSYTyu8Nnhmi9Ljbwco',
-    appId: '1:705514656831:android:70d0f2ae334b601266548a',
-    messagingSenderId: '705514656831',
-    projectId: 'bariy-alshamal',
-    storageBucket: 'bariy-alshamal.appspot.com',
+    apiKey: 'AIzaSyBXfjzilS9wYegWQTkAC78nL5xmqyYf38g',
+    appId: '1:88918746032:android:38f45128aeba76319dac75',
+    messagingSenderId: '88918746032',
+    projectId: 'bariy-alshamal-test',
+    storageBucket: 'bariy-alshamal-test.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDM8U6VxrhPVFiKM89uwk9avnSfSqkH57w',
-    appId: '1:705514656831:ios:71e72a8d42b7022e66548a',
-    messagingSenderId: '705514656831',
-    projectId: 'bariy-alshamal',
-    storageBucket: 'bariy-alshamal.appspot.com',
+    apiKey: 'AIzaSyBMV4qYxArS24iitp7vMUA5av1RQFtTU-E',
+    appId: '1:88918746032:ios:11cbe3e1d33106219dac75',
+    messagingSenderId: '88918746032',
+    projectId: 'bariy-alshamal-test',
+    storageBucket: 'bariy-alshamal-test.appspot.com',
     iosBundleId: 'com.bariyalshamal.maher',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDM8U6VxrhPVFiKM89uwk9avnSfSqkH57w',
-    appId: '1:705514656831:ios:8bb02172a27bad5666548a',
-    messagingSenderId: '705514656831',
-    projectId: 'bariy-alshamal',
-    storageBucket: 'bariy-alshamal.appspot.com',
-    iosBundleId: 'com.example.bariyAlshamal.RunnerTests',
   );
 }

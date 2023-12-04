@@ -10,7 +10,7 @@ class SmoothIndecator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: AnimatedSmoothIndicator(
-        count: 3,
+        count: 2,
         effect: const WormEffect(
           activeDotColor: ColorsManger.green,
           dotColor: ColorsManger.gold,

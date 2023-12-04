@@ -1,13 +1,13 @@
+import 'package:bariy_alshamal/features/admin/add_product/presntation/view_model/add_product_bloc/add_product_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/themes/colors_manger.dart';
 import '../../../../../../core/themes/text_styles.dart';
-import '../../../../../../core/widgets/admin_buttom_nav_bar_view.dart';
 
 class AddProductButtomBody extends StatelessWidget {
-  const AddProductButtomBody({super.key});
-
+  const AddProductButtomBody({super.key, required this.controller});
+  final AddProductBloc controller;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -20,7 +20,9 @@ class AddProductButtomBody extends StatelessWidget {
               backgroundColor: MaterialStatePropertyAll(ColorsManger.green),
               foregroundColor: MaterialStatePropertyAll(ColorsManger.white),
             ),
-            onPressed: () {},
+            onPressed: () {
+              controller.add(AddProduct());
+            },
             icon: const Icon(Icons.add),
             label: Text(
               "اضافة المنتج",
@@ -28,7 +30,6 @@ class AddProductButtomBody extends StatelessWidget {
             ),
           ),
         ),
-        const AdminButtomNavBarView(),
       ],
     );
   }

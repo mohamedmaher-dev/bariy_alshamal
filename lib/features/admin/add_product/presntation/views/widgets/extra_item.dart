@@ -1,10 +1,18 @@
+import 'package:bariy_alshamal/core/themes/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/themes/colors_manger.dart';
 
 class ExtraItem extends StatelessWidget {
-  const ExtraItem({super.key});
+  const ExtraItem(
+      {super.key,
+      required this.details,
+      required this.extraPrice,
+      required this.onDelete});
+  final String details;
+  final String extraPrice;
+  final void Function() onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -13,34 +21,31 @@ class ExtraItem extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: TextFormField(
-              decoration: InputDecoration(
-                border: UnderlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10.r),
-                  ),
+            flex: 2,
+            child: Card(
+              child: Padding(
+                padding: EdgeInsets.all(10.w),
+                child: Text(
+                  details,
+                  style: TextStyles.tsP10B,
                 ),
-                filled: true,
-                hintText: "التفاصيل",
               ),
             ),
           ),
           SizedBox(width: 5.w),
           Expanded(
-            child: TextFormField(
-              decoration: InputDecoration(
-                border: UnderlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10.r),
-                  ),
+            child: Card(
+              child: Padding(
+                padding: EdgeInsets.all(10.w),
+                child: Text(
+                  extraPrice,
+                  style: TextStyles.tsP10B,
                 ),
-                filled: true,
-                hintText: "التكلفة الاضافية",
               ),
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: (onDelete),
             icon: const Icon(
               Icons.delete,
               color: ColorsManger.red,

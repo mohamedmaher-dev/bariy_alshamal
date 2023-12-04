@@ -1,4 +1,6 @@
+import 'package:bariy_alshamal/features/auth/otb/presntation/view_model/otp_bloc/otp_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -9,6 +11,7 @@ class OtpBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    OtpBloc controller = BlocProvider.of<OtpBloc>(context);
     return Padding(
       padding: EdgeInsets.all(15.w),
       child: PinCodeTextField(
@@ -30,9 +33,8 @@ class OtpBody extends StatelessWidget {
         errorTextDirection: TextDirection.rtl,
         animationDuration: const Duration(milliseconds: 300),
         enableActiveFill: true,
-        onCompleted: (v) {},
-        onChanged: (value) {
-          print(value);
+        onCompleted: (v) {
+          controller.add(OtpComplete(context: context, otpCode: v));
         },
         appContext: context,
       ),

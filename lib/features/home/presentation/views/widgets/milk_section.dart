@@ -1,14 +1,16 @@
-import 'package:bariy_alshamal/features/home/presentation/views/widgets/milk_item.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:bariy_alshamal/features/home/presentation/views/view_model/milk_products_bloc/milk_products_bloc.dart';
+import 'package:bariy_alshamal/features/home/presentation/views/widgets/milk_product_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/themes/colors_manger.dart';
 import '../../../../../core/themes/text_styles.dart';
+import '../../../../../core/widgets/empty_view.dart';
 
 class MilkProductsSection extends StatelessWidget {
-  const MilkProductsSection({super.key});
-
+  const MilkProductsSection({super.key, required this.controller});
+  final MilkProductsBloc controller;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -29,17 +31,53 @@ class MilkProductsSection extends StatelessWidget {
             ),
           ),
         ),
-        CarouselSlider.builder(
-          itemCount: 5,
-          itemBuilder: (context, index, realIndex) {
-            return const MilkItem();
+        BlocBuilder<MilkProductsBloc, MilkProductsState>(
+          builder: (context, state) {
+            switch (state) {
+              case MilkProductsInitial():
+                return SizedBox(
+                  height: 100.h,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              case MilkProductsLoading():
+                return SizedBox(
+                  height: 100.h,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              case MilkProductsSuccess():
+                return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1,
+                  ),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => MilkProductItem(
+                    index: index,
+                    productModel: controller.milkProducts.productsList[index],
+                    controller: controller,
+                  ),
+                  itemCount: controller.milkProducts.productsList.length,
+                );
+              case MilkProductsEmpty():
+                return SizedBox(
+                  height: 100.h,
+                  child: const EmptyViwe(),
+                );
+              case MilkProductsFailed():
+                return SizedBox(
+                  height: 100.h,
+                  child: const Center(
+                    child: Icon(Icons.error),
+                  ),
+                );
+            }
           },
-          options: CarouselOptions(
-            height: 200,
-            viewportFraction: 0.5,
-            enableInfiniteScroll: false,
-          ),
-        ),
+        )
       ],
     );
   }

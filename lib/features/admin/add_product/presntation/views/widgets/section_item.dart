@@ -5,9 +5,10 @@ import '../../../../../../core/themes/colors_manger.dart';
 import '../../../../../../core/themes/text_styles.dart';
 
 class SectionItem extends StatelessWidget {
-  const SectionItem({super.key, required this.name, this.add});
+  const SectionItem({super.key, required this.name, this.add, this.onAdd});
   final String name;
   final bool? add;
+  final void Function()? onAdd;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,9 +21,12 @@ class SectionItem extends StatelessWidget {
             style: TextStyles.tsW15B,
           ),
           trailing: add == null || add == true
-              ? const Icon(
-                  Icons.add,
-                  color: ColorsManger.white,
+              ? IconButton(
+                  onPressed: (onAdd),
+                  icon: const Icon(
+                    Icons.add,
+                    color: ColorsManger.white,
+                  ),
                 )
               : null,
         ),

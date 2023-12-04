@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/assets/assets_manger.dart';
 import 'slider_item.dart';
 import 'smooth_indecator.dart';
 
@@ -21,12 +22,11 @@ class _SliderViewState extends State<SliderView> {
       children: [
         CarouselSlider(
           items: const [
-            SliderItem(),
-            SliderItem(),
-            SliderItem(),
+            SliderItem(image: AssetsManger.slider1),
+            SliderItem(image: AssetsManger.slider2),
           ],
           options: CarouselOptions(
-            aspectRatio: 16 / 9,
+            aspectRatio: 16 / 11,
             viewportFraction: 1,
             initialPage: 0,
             enableInfiniteScroll: true,
