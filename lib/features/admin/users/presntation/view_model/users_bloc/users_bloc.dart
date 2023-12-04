@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:bariy_alshamal/features/admin/users/presntation/data/models/users_list_model.dart';
 import 'package:bariy_alshamal/features/admin/users/presntation/data/rebos/rebos/users_remote_rebo.dart';
 import 'package:bariy_alshamal/features/admin/users/presntation/data/rebos/users_rebo.dart';

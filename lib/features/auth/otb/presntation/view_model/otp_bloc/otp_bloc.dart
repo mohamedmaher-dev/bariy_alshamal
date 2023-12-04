@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, unnecessary_import, use_build_context_synchronously
 
-import 'package:bariy_alshamal/core/utils/app_manger.dart';
 import 'package:bariy_alshamal/core/utils/app_route.dart';
 import 'package:bariy_alshamal/core/utils/popup_loading_manger.dart';
 import 'package:bariy_alshamal/core/utils/print.dart';

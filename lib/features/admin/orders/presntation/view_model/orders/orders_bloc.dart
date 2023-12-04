@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:bariy_alshamal/core/utils/popup_loading_manger.dart';
 import 'package:bariy_alshamal/core/utils/print.dart';
 import 'package:bariy_alshamal/features/admin/orders/presntation/data/models/orders_list_model.dart';
