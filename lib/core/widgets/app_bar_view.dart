@@ -4,20 +4,22 @@ import '../themes/colors_manger.dart';
 import '../themes/text_styles.dart';
 
 class AppBarView extends StatelessWidget implements PreferredSize {
-  const AppBarView({super.key, required this.title, this.actions});
-  final String title;
+  const AppBarView({super.key, required this.title, this.actions, this.bottom});
+  final String? title;
   final List<Widget>? actions;
+  final PreferredSize? bottom;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: ColorsManger.green,
       title: Text(
-        title,
+        title ?? "",
         style: TextStyles.tsW15B,
       ),
       centerTitle: true,
       actions: actions,
+      bottom: bottom,
     );
   }
 

@@ -1,10 +1,15 @@
 import 'package:bariy_alshamal/core/assets/assets_manger.dart';
 import 'package:bariy_alshamal/core/themes/colors_manger.dart';
 import 'package:bariy_alshamal/core/themes/text_styles.dart';
+import 'package:bariy_alshamal/core/utils/app_manger.dart';
+import 'package:bariy_alshamal/core/utils/app_route.dart';
+import 'package:bariy_alshamal/core/utils/popup_loading_manger.dart';
 import 'package:bariy_alshamal/core/widgets/app_bar_view.dart';
-import 'package:bariy_alshamal/core/widgets/buttom_nav_bar_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyAccountView extends StatelessWidget {
   const MyAccountView({super.key});
@@ -13,7 +18,6 @@ class MyAccountView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarView(title: "حسابي"),
-      bottomNavigationBar: const ButtomNavBarView(),
       body: ListView(
         children: [
           Padding(
@@ -33,45 +37,70 @@ class MyAccountView extends StatelessWidget {
               Expanded(
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: Container(
-                    margin: EdgeInsets.all(10.w),
-                    decoration: BoxDecoration(
-                      color: ColorsManger.green,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.r),
+                  child: GestureDetector(
+                    child: Container(
+                      margin: EdgeInsets.all(10.w),
+                      decoration: BoxDecoration(
+                        color: ColorsManger.green,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20.r),
+                        ),
                       ),
+                      child: Image.asset(AssetsManger.snapLogo),
                     ),
-                    child: Image.asset(AssetsManger.snapLogo),
+                    onTap: () {
+                      launchUrl(
+                        Uri.parse(
+                            "https://www.snapchat.com/add/wildnorth1?share_id=6cNjF3gvpy0&locale=ar-AE"),
+                        mode: LaunchMode.externalApplication,
+                      );
+                    },
                   ),
                 ),
               ),
               Expanded(
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: Container(
-                    margin: EdgeInsets.all(10.w),
-                    decoration: BoxDecoration(
-                      color: ColorsManger.green,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.r),
+                  child: GestureDetector(
+                    child: Container(
+                      margin: EdgeInsets.all(10.w),
+                      decoration: BoxDecoration(
+                        color: ColorsManger.green,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20.r),
+                        ),
                       ),
+                      child: Image.asset(AssetsManger.whatsLogo),
                     ),
-                    child: Image.asset(AssetsManger.whatsLogo),
+                    onTap: () async {
+                      await Clipboard.setData(
+                        const ClipboardData(text: "0581388885"),
+                      );
+                      PopUpLoading.success("تم نسخ الرقم بنجاح");
+                    },
                   ),
                 ),
               ),
               Expanded(
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: Container(
-                    margin: EdgeInsets.all(10.w),
-                    decoration: BoxDecoration(
-                      color: ColorsManger.green,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.r),
+                  child: GestureDetector(
+                    child: Container(
+                      margin: EdgeInsets.all(10.w),
+                      decoration: BoxDecoration(
+                        color: ColorsManger.green,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20.r),
+                        ),
                       ),
+                      child: Image.asset(AssetsManger.mailLogo),
                     ),
-                    child: Image.asset(AssetsManger.xLogo),
+                    onTap: () async {
+                      await Clipboard.setData(
+                        const ClipboardData(text: "albiji95@gmail.com"),
+                      );
+                      PopUpLoading.success("تم نسخ البريد الألكتروني بنجاح");
+                    },
                   ),
                 ),
               ),
@@ -124,15 +153,26 @@ class MyAccountView extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(15.w),
             child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.exit_to_app_rounded),
+              onPressed: () {
+                if (AppManger.isLogin) {
+                  FirebaseAuth.instance.signOut();
+                  AppRoute.pushAndRemoveUntil(
+                      context: context, page: Pages.splash);
+                } else {
+                  AppRoute.push(context: context, page: Pages.signIn);
+                }
+              },
+              icon: Icon(AppManger.isLogin ? Icons.exit_to_app : Icons.add),
               label: Text(
-                "تسجيل الخروج",
+                AppManger.isLogin ? "تسجيل الخروج" : "تسجيل الدخول",
                 style: TextStyles.tsW12B,
               ),
-              style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(ColorsManger.red),
-                foregroundColor: MaterialStatePropertyAll(ColorsManger.white),
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  AppManger.isLogin ? ColorsManger.red : ColorsManger.green,
+                ),
+                foregroundColor:
+                    const MaterialStatePropertyAll(ColorsManger.white),
               ),
             ),
           )

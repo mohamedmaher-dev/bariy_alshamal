@@ -1,7 +1,8 @@
 import 'package:bariy_alshamal/core/localization/generated/l10n.dart';
 import 'package:bariy_alshamal/core/themes/app_theme.dart';
-import 'package:bariy_alshamal/features/auth/sign_up/presentaion/views/sign_up_view.dart';
+import 'package:bariy_alshamal/features/splash/views/splash_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,7 +25,8 @@ class BariyAlshamal extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: Language.delegate.supportedLocales,
-        home: const SignUpView(),
+        home: const SplashView(),
+        builder: EasyLoading.init(),
       ),
     );
   }

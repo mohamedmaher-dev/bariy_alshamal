@@ -1,3 +1,4 @@
+import 'package:bariy_alshamal/features/cart/presntation/view_model/cart_bloc/cart_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/themes/colors_manger.dart';
@@ -6,14 +7,19 @@ import '../../../../../core/themes/text_styles.dart';
 class CartItem extends StatelessWidget {
   const CartItem({
     super.key,
+    required this.controller,
+    required this.index,
   });
-
+  final CartBloc controller;
+  final int index;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            controller.add(DeleteCartItem(index: index));
+          },
           icon: const Icon(
             Icons.delete,
             color: ColorsManger.red,
@@ -30,14 +36,21 @@ class CartItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "ذبيحة تيس بلدي كاملة",
+                  controller.cartItems.list[index].productName,
                   style: TextStyles.tsW15B,
                 ),
                 const Divider(),
-                const Row(
+                Row(
                   children: [
-                    _FieldItem(title: "الكمية", value: "2"),
-                    _FieldItem(title: "السعر", value: "700"),
+                    _FieldItem(
+                      title: "الكمية",
+                      value: controller.cartItems.list[index].count.toString(),
+                    ),
+                    _FieldItem(
+                      title: "السعر",
+                      value: controller.cartItems.list[index].totalPrice
+                          .toString(),
+                    ),
                   ],
                 ),
               ],

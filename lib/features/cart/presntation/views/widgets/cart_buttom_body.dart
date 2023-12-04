@@ -1,19 +1,19 @@
+import 'package:bariy_alshamal/features/cart/presntation/view_model/cart_bloc/cart_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/themes/colors_manger.dart';
 import '../../../../../core/themes/text_styles.dart';
-import '../../../../../core/widgets/buttom_nav_bar_view.dart';
 
 class CartButtomBody extends StatelessWidget {
-  const CartButtomBody({super.key});
-
+  const CartButtomBody({super.key, required this.controller});
+  final CartBloc controller;
   @override
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
       children: [
         Text(
-          "اجمالي السعر هو 1400",
+          "اجمالي السعر هو ${controller.totalPrice} ريال سعودي",
           textAlign: TextAlign.center,
           style: TextStyles.tsP15B,
         ),
@@ -24,7 +24,9 @@ class CartButtomBody extends StatelessWidget {
               backgroundColor: MaterialStatePropertyAll(ColorsManger.green),
               foregroundColor: MaterialStatePropertyAll(ColorsManger.white),
             ),
-            onPressed: () {},
+            onPressed: () {
+              controller.add(ConfirmCart());
+            },
             icon: const Icon(Icons.done_all),
             label: Text(
               "تأكيد الشراء",
@@ -32,7 +34,6 @@ class CartButtomBody extends StatelessWidget {
             ),
           ),
         ),
-        const ButtomNavBarView()
       ],
     );
   }

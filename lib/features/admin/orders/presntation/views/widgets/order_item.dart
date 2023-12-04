@@ -1,12 +1,19 @@
+import 'package:bariy_alshamal/core/utils/app_route.dart';
+import 'package:bariy_alshamal/features/admin/orders/presntation/data/models/order_model.dart';
+import 'package:bariy_alshamal/features/admin/orders/presntation/view_model/orders/orders_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../../../../../core/themes/colors_manger.dart';
 import 'field_item.dart';
 
 class OrderItem extends StatelessWidget {
-  const OrderItem({super.key});
-
+  const OrderItem(
+      {super.key, required this.orderModel, required this.controller});
+  final OrderModel orderModel;
+  final OrdersBloc controller;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,40 +27,61 @@ class OrderItem extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          const Row(
+          Row(
             children: [
-              FieldItem(title: "اسم المنتج", value: "نصف ذبيحة تيس بلدي"),
+              FieldItem(title: "اسم المنتج", value: orderModel.productName),
+              FieldItem(
+                title: "تكلفة المنتج",
+                value: orderModel.price.toString(),
+              ),
             ],
           ),
-          const Row(
+          Row(
             children: [
-              FieldItem(title: "تكلفة المنتج", value: "1500"),
-              FieldItem(title: "تاريخ الطلب", value: "28/11/2023"),
-            ],
-          ),
-          const Divider(),
-          const Row(
-            children: [
-              FieldItem(title: "الحجم", value: "هرفي 4 شهور"),
-              FieldItem(title: "الرأس", value: "بدون"),
-            ],
-          ),
-          const Row(
-            children: [
-              FieldItem(title: "طريقة التغليف", value: "مغلف"),
-              FieldItem(title: "مفروم", value: "نعم"),
-            ],
-          ),
-          const Row(
-            children: [
-              FieldItem(title: "طريقة التقطيع", value: "نصفين بالطول"),
+              FieldItem(
+                title: "الكمية",
+                value: orderModel.count.toString(),
+              ),
+              FieldItem(
+                title: "تاريخ الطلب",
+                value:
+                    "${orderModel.date.year}/${orderModel.date.month}/${orderModel.date.day}",
+              ),
             ],
           ),
           const Divider(),
-          const Row(
+          Row(
             children: [
-              FieldItem(title: "اسم العميل", value: "محمد ماهر"),
-              FieldItem(title: "رقم العميل", value: "0123456789"),
+              FieldItem(title: "الحجم", value: orderModel.size ?? "-"),
+              FieldItem(title: "الرأس", value: orderModel.head ?? "-"),
+            ],
+          ),
+          Row(
+            children: [
+              FieldItem(
+                  title: "طريقة التغليف", value: orderModel.package ?? "-"),
+              FieldItem(title: "مفروم", value: orderModel.mafroum ?? "-"),
+            ],
+          ),
+          Row(
+            children: [
+              FieldItem(title: "طريقة التقطيع", value: orderModel.cut ?? "-"),
+            ],
+          ),
+          Row(
+            children: [
+              FieldItem(title: "ملاحظة", value: orderModel.note ?? "-"),
+            ],
+          ),
+          const Divider(),
+          Row(
+            children: [
+              FieldItem(title: "اسم العميل", value: orderModel.userName),
+              FieldItem(
+                title: "رقم العميل",
+                value:
+                    "0${orderModel.userPhone.toString().replaceRange(0, 4, "")}",
+              ),
             ],
           ),
           const Divider(),
@@ -63,11 +91,46 @@ class OrderItem extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.all(10.w),
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (contextDialog) {
+                          return FlutterMap(
+                            options: MapOptions(
+                              initialCenter: LatLng(orderModel.location.lat,
+                                  orderModel.location.long),
+                              initialZoom: 9.2,
+                            ),
+                            children: [
+                              TileLayer(
+                                urlTemplate:
+                                    'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                userAgentPackageName: 'com.example.app',
+                              ),
+                              MarkerLayer(
+                                markers: [
+                                  Marker(
+                                    point: LatLng(orderModel.location.lat,
+                                        orderModel.location.long),
+                                    width: 80,
+                                    height: 80,
+                                    child: const Icon(
+                                      Icons.location_pin,
+                                      color: ColorsManger.green,
+                                      size: 50,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
                     icon: const Icon(
-                      Icons.done,
+                      Icons.location_pin,
                     ),
-                    label: const Text("قبول"),
+                    label: const Text("عرض الموقع"),
                     style: const ButtonStyle(
                       backgroundColor:
                           MaterialStatePropertyAll(ColorsManger.gold),
@@ -81,11 +144,39 @@ class OrderItem extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.all(10.w),
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (contextDialog) => AlertDialog(
+                          title: const Text("حذف الطلب"),
+                          content: const Text("هل تريد حقا حذف الطلب"),
+                          actions: [
+                            ElevatedButton(
+                              style: const ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(ColorsManger.red),
+                                foregroundColor: MaterialStatePropertyAll(
+                                  ColorsManger.white,
+                                ),
+                              ),
+                              onPressed: () {
+                                AppRoute.pop(context: contextDialog);
+                                controller.add(
+                                  DeleteOrderEvent(
+                                    orderID: orderModel.orderID,
+                                  ),
+                                );
+                              },
+                              child: const Text("حذف"),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                     icon: const Icon(
-                      Icons.close,
+                      Icons.delete,
                     ),
-                    label: const Text("رفض"),
+                    label: const Text("حذف"),
                     style: const ButtonStyle(
                       backgroundColor:
                           MaterialStatePropertyAll(ColorsManger.red),
