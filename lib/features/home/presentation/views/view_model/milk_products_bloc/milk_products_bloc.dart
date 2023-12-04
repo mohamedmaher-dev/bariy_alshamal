@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages, unnecessary_import
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
