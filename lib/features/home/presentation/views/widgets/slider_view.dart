@@ -23,7 +23,6 @@ class _SliderViewState extends State<SliderView> {
         CarouselSlider(
           items: const [
             SliderItem(image: AssetsManger.slider1),
-            SliderItem(image: AssetsManger.slider2),
           ],
           options: CarouselOptions(
             aspectRatio: 16 / 11,

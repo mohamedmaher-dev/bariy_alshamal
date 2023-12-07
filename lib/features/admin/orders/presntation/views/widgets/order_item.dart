@@ -2,10 +2,8 @@ import 'package:bariy_alshamal/core/utils/app_route.dart';
 import 'package:bariy_alshamal/features/admin/orders/presntation/data/models/order_model.dart';
 import 'package:bariy_alshamal/features/admin/orders/presntation/view_model/orders/orders_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:latlong2/latlong.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../../../core/themes/colors_manger.dart';
 import 'field_item.dart';
 
@@ -92,40 +90,11 @@ class OrderItem extends StatelessWidget {
                   padding: EdgeInsets.all(10.w),
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (contextDialog) {
-                          return FlutterMap(
-                            options: MapOptions(
-                              initialCenter: LatLng(orderModel.location.lat,
-                                  orderModel.location.long),
-                              initialZoom: 9.2,
-                            ),
-                            children: [
-                              TileLayer(
-                                urlTemplate:
-                                    'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                userAgentPackageName: 'com.example.app',
-                              ),
-                              MarkerLayer(
-                                markers: [
-                                  Marker(
-                                    point: LatLng(orderModel.location.lat,
-                                        orderModel.location.long),
-                                    width: 80,
-                                    height: 80,
-                                    child: const Icon(
-                                      Icons.location_pin,
-                                      color: ColorsManger.green,
-                                      size: 50,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                      double lat = orderModel.location.lat;
+                      double long = orderModel.location.long;
+                      Uri url = Uri.parse(
+                          "https://www.google.com/maps/dir/?api=1&origin=$lat,$long");
+                      launchUrl(url);
                     },
                     icon: const Icon(
                       Icons.location_pin,

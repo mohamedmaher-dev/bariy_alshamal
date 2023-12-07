@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../products/presentation/view_model/products_bloc/products_bloc.dart';
+
 class OneProductView extends StatefulWidget {
   const OneProductView({super.key});
 
@@ -20,7 +22,9 @@ class _OneProductViewState extends State<OneProductView> {
   @override
   void initState() {
     controller = BlocProvider.of<OneProductBloc>(context);
-    controller.add(OneProductInitEvent());
+    controller.productModel =
+        BlocProvider.of<ProductsBloc>(context).oneProductModel;
+    controller.add(OneProductInitEvent(context: context));
     super.initState();
   }
 
@@ -134,11 +138,11 @@ class _OneProductViewState extends State<OneProductView> {
                   ),
                 ),
               ),
-              controller.productModel.sizes.list.isNotEmpty
+              controller.productModel.size.list.isNotEmpty
                   ? SectionItem(
                       title: "الحجم : ",
                       groupValue: controller.size.details,
-                      list: controller.productModel.sizes.list,
+                      extra: controller.productModel.size,
                       onPressed: (value, index) {
                         controller.add(SizeSelect(index: index));
                       },
@@ -147,11 +151,11 @@ class _OneProductViewState extends State<OneProductView> {
                       },
                     )
                   : const SizedBox.shrink(),
-              controller.productModel.cutting.list.isNotEmpty
+              controller.productModel.cut.list.isNotEmpty
                   ? SectionItem(
                       title: "طريقة التقطيع : ",
                       groupValue: controller.cuttings.details,
-                      list: controller.productModel.cutting.list,
+                      extra: controller.productModel.cut,
                       onPressed: (value, index) {
                         controller.add(CuttingsSelect(index: index));
                       },
@@ -160,11 +164,11 @@ class _OneProductViewState extends State<OneProductView> {
                       },
                     )
                   : const SizedBox.shrink(),
-              controller.productModel.packages.list.isNotEmpty
+              controller.productModel.package.list.isNotEmpty
                   ? SectionItem(
                       title: "طريقة التغليف : ",
                       groupValue: controller.packages.details,
-                      list: controller.productModel.packages.list,
+                      extra: controller.productModel.package,
                       onPressed: (value, index) {
                         controller.add(PackgesSelect(index: index));
                       },
@@ -177,7 +181,7 @@ class _OneProductViewState extends State<OneProductView> {
                   ? SectionItem(
                       title: "مفروم؟",
                       groupValue: controller.mafroum.details,
-                      list: controller.productModel.mafroum.list,
+                      extra: controller.productModel.mafroum,
                       onPressed: (value, index) {
                         controller.add(MafroumSelect(index: index));
                       },
@@ -190,7 +194,7 @@ class _OneProductViewState extends State<OneProductView> {
                   ? SectionItem(
                       title: "الرأس : ",
                       groupValue: controller.head.details,
-                      list: controller.productModel.head.list,
+                      extra: controller.productModel.head,
                       onPressed: (value, index) {
                         controller.add(HeadSelect(index: index));
                       },

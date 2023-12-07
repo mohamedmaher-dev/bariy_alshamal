@@ -34,6 +34,10 @@ class ButtomNavBarView extends StatelessWidget {
               icon: Icons.home,
               text: language.home,
             ),
+            const GButton(
+              icon: Icons.delivery_dining,
+              text: "طلباتي",
+            ),
             GButton(
               icon: Icons.account_circle,
               text: language.my_account,

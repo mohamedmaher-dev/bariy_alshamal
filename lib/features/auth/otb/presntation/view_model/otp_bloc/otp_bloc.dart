@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, unnecessary_import, use_build_context_synchronously
 
-import 'package:bariy_alshamal/core/utils/app_manger.dart';
 import 'package:bariy_alshamal/core/utils/app_route.dart';
 import 'package:bariy_alshamal/core/utils/popup_loading_manger.dart';
 import 'package:bariy_alshamal/core/utils/print.dart';
@@ -20,6 +19,7 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
   late bool isNewUser;
   late String userName;
   late int userPhone;
+  late String city;
   String? verificationId;
   UserCredential? userData;
   int timeLeft = 60;
@@ -58,6 +58,7 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
                         userPhone: userPhone,
                         userName: userName,
                         countryCode: 966,
+                        city: city,
                       );
                       auth.currentUser!.updateDisplayName(userName);
                     }

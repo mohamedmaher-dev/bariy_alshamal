@@ -12,3 +12,8 @@ final class AreadyHaveAccountClick extends SignUpEvent {
   final BuildContext context;
   AreadyHaveAccountClick({required this.context});
 }
+
+final class CitySelect extends SignUpEvent {
+  final String city;
+  CitySelect({required this.city});
+}

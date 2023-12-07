@@ -7,10 +7,19 @@ abstract class CartRebo {
 
   Future deleteCartItem({required String cartItemID});
 
-  Future addOrder(
-      {required CartItemListModel cartItems, required LatLng location});
+  Future addOrder({
+    required CartItemListModel cartItems,
+    required int promoCodeValue,
+    required int itemCount,
+    required String? promoCode,
+    required LatLng location,
+  });
 
   Future deleteCart({
     required CartItemListModel cartItems,
+  });
+
+  Future<({String code, bool isActive, int value})?> getPromoCode({
+    required String code,
   });
 }

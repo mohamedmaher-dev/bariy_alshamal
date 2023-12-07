@@ -14,5 +14,6 @@ abstract class OtpRebos {
     required int userPhone,
     required String userName,
     required int countryCode,
+    required String city,
   });
 }

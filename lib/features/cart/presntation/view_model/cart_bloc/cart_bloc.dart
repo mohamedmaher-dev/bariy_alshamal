@@ -3,7 +3,6 @@
 import 'package:bariy_alshamal/core/utils/app_manger.dart';
 import 'package:bariy_alshamal/core/utils/app_route.dart';
 import 'package:bariy_alshamal/core/utils/popup_loading_manger.dart';
-import 'package:bariy_alshamal/core/utils/print.dart';
 import 'package:bariy_alshamal/features/cart/data/models/cart_item_list_model.dart';
 import 'package:bariy_alshamal/features/cart/data/rebos/cart_rebo.dart';
 import 'package:bariy_alshamal/features/cart/data/rebos/rebos/cart_remote_rebo.dart';
@@ -17,8 +16,11 @@ part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartRebo cartRebo = CartRemoteRebo();
+  TextEditingController promoCodeController = TextEditingController();
   late CartItemListModel cartItems;
+  late ({String code, bool isActive, int value})? promoCode;
   int totalPrice = 0;
+  int promoCodeValue = 0;
   LatLng? myLocation;
   late String userName;
   CartBloc() : super(CartInitial()) {
@@ -55,6 +57,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
                 try {
                   await cartRebo.addOrder(
                     cartItems: cartItems,
+                    itemCount: cartItems.list.length,
+                    promoCodeValue: promoCodeValue,
+                    promoCode: promoCode == null ? null : promoCode!.code,
                     location: myLocation!,
                   );
                   try {
@@ -65,7 +70,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
                   await getCartItems(emit);
                   PopUpLoading.success("تم تأكيد الطلب بنجاح");
                 } catch (e) {
-                  DebugPrint.error(e.toString());
                   PopUpLoading.error("حدث خطأ ما");
                 }
                 PopUpLoading.dismiss();
@@ -78,6 +82,39 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             {
               AppRoute.push(context: event.context, page: Pages.signIn);
             }
+          case UsePromoCode():
+            {
+              if (promoCodeController.text.isEmpty) {
+                promoCodeValue = 0;
+                PopUpLoading.error("برجاء كتابة الكود");
+              } else {
+                PopUpLoading.loading();
+                try {
+                  promoCode = await cartRebo.getPromoCode(
+                    code: promoCodeController.text,
+                  );
+                  if (promoCode != null) {
+                    if (promoCode!.isActive) {
+                      promoCodeValue = promoCode!.value;
+                      PopUpLoading.success(
+                        "تم استخدام كود الخصم بنجاح بقيمة $promoCodeValue ريال سعودي",
+                      );
+                    } else {
+                      promoCodeValue = 0;
+                      PopUpLoading.error("تم استخدام هذا الكود من قبل");
+                    }
+                  } else {
+                    promoCodeValue = 0;
+                    PopUpLoading.error("لا يوجد كود خصم بهذا الاسم");
+                  }
+                } catch (e) {
+                  promoCodeValue = 0;
+                  PopUpLoading.error("حدث خطأ ما");
+                }
+              }
+              await getCartItems(emit);
+            }
+            break;
         }
       },
     );
@@ -96,7 +133,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(CartSuccess());
       }
     } catch (e) {
-      DebugPrint.error(e.toString());
       emit(CartFailed());
     }
   }
@@ -106,6 +142,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     for (var element in cartItems.list) {
       result = result + element.totalPrice;
     }
-    return result;
+    return result - promoCodeValue;
   }
 }

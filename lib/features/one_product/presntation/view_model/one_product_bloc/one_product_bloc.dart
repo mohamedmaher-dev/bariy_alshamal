@@ -1,12 +1,14 @@
 // ignore_for_file: depend_on_referenced_packages, unnecessary_import, use_build_context_synchronously
 
 import 'package:bariy_alshamal/core/utils/popup_loading_manger.dart';
-import 'package:bariy_alshamal/features/home/data/models/products/product_model.dart';
 import 'package:bariy_alshamal/features/one_product/data/rebos/one_product_rebo.dart';
 import 'package:bariy_alshamal/features/one_product/data/rebos/rebos/one_product_remote_rebo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+
+import '../../../../products/data/models/product_model.dart';
 
 part 'one_product_event.dart';
 part 'one_product_state.dart';
@@ -37,8 +39,8 @@ class OneProductBloc extends Bloc<OneProductEvent, OneProductState> {
           case SizeSelect():
             {
               size = (
-                details: productModel.sizes.list[event.index].details,
-                price: productModel.sizes.list[event.index].price,
+                details: productModel.size.list[event.index].details,
+                price: productModel.size.list[event.index].price,
               );
             }
             break;
@@ -55,8 +57,8 @@ class OneProductBloc extends Bloc<OneProductEvent, OneProductState> {
           case PackgesSelect():
             {
               packages = (
-                details: productModel.packages.list[event.index].details,
-                price: productModel.packages.list[event.index].price,
+                details: productModel.package.list[event.index].details,
+                price: productModel.package.list[event.index].price,
               );
             }
             break;
@@ -73,8 +75,8 @@ class OneProductBloc extends Bloc<OneProductEvent, OneProductState> {
           case CuttingsSelect():
             {
               cuttings = (
-                details: productModel.cutting.list[event.index].details,
-                price: productModel.cutting.list[event.index].price,
+                details: productModel.cut.list[event.index].details,
+                price: productModel.cut.list[event.index].price,
               );
             }
             break;

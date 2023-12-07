@@ -5,6 +5,8 @@ import 'package:bariy_alshamal/features/cart/presntation/view_model/cart_bloc/ca
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
 class MyMapView extends StatefulWidget {
@@ -16,26 +18,64 @@ class MyMapView extends StatefulWidget {
 
 class _MyMapViewState extends State<MyMapView> {
   LatLng postion = const LatLng(21.422510, 39.826168);
+  MapController mapController = MapController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarView(title: "تحديد الموقع"),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: ColorsManger.green,
-        foregroundColor: ColorsManger.white,
-        onPressed: () {
-          BlocProvider.of<CartBloc>(context).myLocation = postion;
-          PopUpLoading.success("تم اختيار الموقع بنجاح");
-          Navigator.of(context).pop();
-        },
-        label: const Text("تأكيد"),
-        icon: const Icon(Icons.done),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton.extended(
+            backgroundColor: ColorsManger.green,
+            foregroundColor: ColorsManger.white,
+            onPressed: () async {
+              bool locationIsEnable =
+                  await Geolocator.isLocationServiceEnabled();
+              LocationPermission permission =
+                  await Geolocator.checkPermission();
+              if (locationIsEnable) {
+                if (permission == LocationPermission.always) {
+                  Position myPostion = await Geolocator.getCurrentPosition();
+                  setState(() {
+                    postion = LatLng(myPostion.latitude, myPostion.longitude);
+                    mapController.move(postion, 10);
+                  });
+                } else {
+                  Geolocator.requestPermission();
+                }
+              } else {
+                PopUpLoading.error("الرجاء تشغيل GPS");
+              }
+            },
+            label: const Text("تحديد موقعي"),
+            icon: const Icon(Icons.location_history),
+          ),
+          SizedBox(height: 10.h),
+          FloatingActionButton.extended(
+            backgroundColor: ColorsManger.green,
+            foregroundColor: ColorsManger.white,
+            onPressed: () {
+              BlocProvider.of<CartBloc>(context).myLocation = postion;
+              PopUpLoading.success("تم اختيار الموقع بنجاح");
+              Navigator.of(context).pop();
+            },
+            label: const Text("تأكيد"),
+            icon: const Icon(Icons.done),
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       body: FlutterMap(
+        mapController: mapController,
         options: MapOptions(
           initialCenter: postion,
-          initialZoom: 9.2,
+          initialZoom: 10,
+          interactionOptions: const InteractionOptions(
+            enableScrollWheel: false,
+          ),
+          minZoom: 1,
+          maxZoom: 20,
           onTap: (tapPosition, point) {
             setState(() {
               postion = point;

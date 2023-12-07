@@ -40,6 +40,10 @@ class AdminButtomNavBarView extends StatelessWidget {
               icon: Icons.group,
               text: "العملاء",
             ),
+            GButton(
+              icon: Icons.discount,
+              text: "اكواد الخصم",
+            ),
           ],
           selectedIndex: controller.currentIndex,
           onTabChange: (value) {

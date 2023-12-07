@@ -8,6 +8,7 @@ import 'package:bariy_alshamal/features/home/presentation/views/home_view.dart';
 import 'package:bariy_alshamal/features/map/presntation/views/map_view.dart';
 import 'package:bariy_alshamal/features/my_account/presentation/views/my_account_view.dart';
 import 'package:bariy_alshamal/features/one_product/presntation/views/one_product_view.dart';
+import 'package:bariy_alshamal/features/products/presentation/views/products_view.dart';
 import 'package:bariy_alshamal/features/splash/views/splash_view.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,7 @@ enum Pages {
   splash,
   board,
   adminBoard,
+  products,
 }
 
 abstract class AppRoute {
@@ -61,6 +63,8 @@ abstract class AppRoute {
             return const BoardView();
           case Pages.adminBoard:
             return const AdminBoardView();
+          case Pages.products:
+            return const ProductsView();
         }
       },
     );

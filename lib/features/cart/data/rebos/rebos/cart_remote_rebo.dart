@@ -33,6 +33,9 @@ class CartRemoteRebo implements CartRebo {
   @override
   Future addOrder({
     required CartItemListModel cartItems,
+    required int promoCodeValue,
+    required int itemCount,
+    required String? promoCode,
     required LatLng location,
   }) async {
     for (var element in cartItems.list) {
@@ -43,7 +46,7 @@ class CartRemoteRebo implements CartRebo {
         "date": DateTime.now().toUtc(),
         "product_name": element.productName,
         "product_count": element.count,
-        "total_price": element.totalPrice,
+        "total_price": element.totalPrice - promoCodeValue ~/ itemCount,
         "note": element.note,
         "location": {"lat": location.latitude, "long": location.longitude},
         "size": element.size,
@@ -52,6 +55,11 @@ class CartRemoteRebo implements CartRebo {
         "mafroum": element.mafroum,
         "head": element.head,
       });
+    }
+    if (promoCode != null) {
+      await store.collection("promo_codes").doc(promoCode).update(
+        {"is_active": false},
+      );
     }
   }
 
@@ -67,5 +75,24 @@ class CartRemoteRebo implements CartRebo {
           .doc(element.cartItemID)
           .delete();
     }
+  }
+
+  @override
+  Future<({String code, bool isActive, int value})?> getPromoCode({
+    required String code,
+  }) async {
+    return await store.collection("promo_codes").doc(code).get().then(
+      (value) {
+        if (value.exists) {
+          return (
+            code: value.id,
+            isActive: value.data()!["is_active"] as bool,
+            value: value.data()!["value"] as int
+          );
+        } else {
+          return null;
+        }
+      },
+    );
   }
 }

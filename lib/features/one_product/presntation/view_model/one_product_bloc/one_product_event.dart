@@ -3,7 +3,10 @@ part of 'one_product_bloc.dart';
 @immutable
 sealed class OneProductEvent {}
 
-final class OneProductInitEvent extends OneProductEvent {}
+final class OneProductInitEvent extends OneProductEvent {
+  final BuildContext context;
+  OneProductInitEvent({required this.context});
+}
 
 final class SizeSelect extends OneProductEvent {
   final int index;

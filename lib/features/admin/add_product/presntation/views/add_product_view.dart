@@ -56,3 +56,6 @@ class AddProductView extends StatelessWidget {
     );
   }
 }
+
+// تيس = 0
+// 1 = منجات اغنام

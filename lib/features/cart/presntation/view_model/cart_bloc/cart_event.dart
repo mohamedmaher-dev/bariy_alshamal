@@ -16,3 +16,5 @@ final class GoToLogin extends CartEvent {
   final BuildContext context;
   GoToLogin({required this.context});
 }
+
+final class UsePromoCode extends CartEvent {}

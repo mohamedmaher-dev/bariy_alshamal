@@ -1,5 +1,5 @@
 import 'package:bariy_alshamal/core/themes/colors_manger.dart';
-import 'package:bariy_alshamal/features/home/data/models/products/extra_model.dart';
+import 'package:bariy_alshamal/features/products/data/models/product_extra_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,12 +10,12 @@ class SectionItem extends StatelessWidget {
       {super.key,
       required this.title,
       required this.groupValue,
-      required this.list,
+      required this.extra,
       required this.onPressed,
       required this.onDelete});
   final String title;
   final String? groupValue;
-  final List<ExtraModel> list;
+  final ProductExtraModel extra;
   final void Function(String?, int) onPressed;
   final void Function() onDelete;
   @override
@@ -54,11 +54,12 @@ class SectionItem extends StatelessWidget {
             child: ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: list.length,
+              itemCount: extra.list.length,
               itemBuilder: (context, index) => RadioListTile(
-                value: list[index].details,
+                value: extra.list[index].details,
                 groupValue: groupValue,
-                title: Text(list[index].details, style: TextStyles.tsP12B),
+                title:
+                    Text(extra.list[index].details, style: TextStyles.tsP12B),
                 onChanged: (value) {
                   onPressed(value, index);
                 },

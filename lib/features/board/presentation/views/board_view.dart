@@ -3,6 +3,7 @@ import 'package:bariy_alshamal/features/board/presentation/views/widgets/buttom_
 import 'package:bariy_alshamal/features/cart/presntation/views/cart_view.dart';
 import 'package:bariy_alshamal/features/home/presentation/views/home_view.dart';
 import 'package:bariy_alshamal/features/my_account/presentation/views/my_account_view.dart';
+import 'package:bariy_alshamal/features/my_orders/presentation/views/my_order_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,6 +36,7 @@ class _BoardViewState extends State<BoardView> {
             children: const [
               CartView(),
               HomeView(),
+              MyOrdersView(),
               MyAccountView(),
             ],
           );

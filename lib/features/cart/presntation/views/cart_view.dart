@@ -1,5 +1,6 @@
 import 'package:bariy_alshamal/core/themes/colors_manger.dart';
 import 'package:bariy_alshamal/core/themes/text_styles.dart';
+import 'package:bariy_alshamal/core/utils/app_manger.dart';
 import 'package:bariy_alshamal/core/utils/app_route.dart';
 import 'package:bariy_alshamal/core/widgets/app_bar_view.dart';
 import 'package:bariy_alshamal/core/widgets/empty_view.dart';
@@ -31,15 +32,44 @@ class _CartViewState extends State<CartView> {
       appBar: AppBarView(
         title: "السلة",
         actions: [
-          IconButton(
-            onPressed: () {
-              AppRoute.push(context: context, page: Pages.map);
-            },
-            icon: const Icon(
-              Icons.location_pin,
-              color: ColorsManger.white,
+          if (AppManger.isLogin)
+            IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("استخدام كود خصم"),
+                    content: TextFormField(
+                      decoration: const InputDecoration(hintText: "كود الخصم"),
+                      controller: controller.promoCodeController,
+                    ),
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          AppRoute.pop(context: context);
+                          controller.add(UsePromoCode());
+                        },
+                        child: const Text("تأكيد"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.discount_rounded,
+                color: ColorsManger.white,
+              ),
             ),
-          )
+          if (AppManger.isLogin)
+            IconButton(
+              onPressed: () {
+                AppRoute.push(context: context, page: Pages.map);
+              },
+              icon: const Icon(
+                Icons.location_pin,
+                color: ColorsManger.white,
+              ),
+            ),
         ],
       ),
       bottomNavigationBar: BlocBuilder<CartBloc, CartState>(

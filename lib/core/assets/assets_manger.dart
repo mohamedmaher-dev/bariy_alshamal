@@ -9,4 +9,5 @@ abstract class AssetsManger {
   static const String mailLogo = "assets/images/mail.png";
   static const String slider1 = "assets/slider/1.jpg";
   static const String slider2 = "assets/slider/2.jpg";
+  static const String categoryicon = "assets/images/category_icon.jpg";
 }

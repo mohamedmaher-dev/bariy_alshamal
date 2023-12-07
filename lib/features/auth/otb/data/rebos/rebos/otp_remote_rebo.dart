@@ -49,11 +49,13 @@ class OtpRemoteRebo implements OtpRebos {
     required int userPhone,
     required String userName,
     required int countryCode,
+    required String city,
   }) {
     store.collection(FireStoreCollection.users).doc(userUID).set({
       FireStoreFields.name: userName,
       FireStoreFields.phone: userPhone,
       FireStoreFields.countryCode: countryCode,
+      "city": city,
     });
   }
 }

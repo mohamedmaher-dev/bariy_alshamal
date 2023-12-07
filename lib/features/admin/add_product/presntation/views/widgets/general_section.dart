@@ -80,7 +80,7 @@ class GeneralSection extends StatelessWidget {
                           controller.add(TypeSelect(newValue: 0));
                         },
                         title: Text(
-                          "منتجات بري",
+                          "نعيمي",
                           style: TextStyles.tsP10B,
                         ),
                       ),

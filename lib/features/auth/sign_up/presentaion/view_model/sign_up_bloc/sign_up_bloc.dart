@@ -19,6 +19,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   GlobalKey<FormState> formKey = GlobalKey();
   late bool isNewUser;
   late String userUID;
+  String city = "الرياض";
   TextEditingController userName = TextEditingController();
   TextEditingController userPhone = TextEditingController();
   SignUpBloc() : super(SignUpInitial()) {
@@ -39,6 +40,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
                           int.parse(userPhone.text);
                       BlocProvider.of<OtpBloc>(event.context).userName =
                           userName.text;
+                      BlocProvider.of<OtpBloc>(event.context).city = city;
                       BlocProvider.of<OtpBloc>(event.context).isNewUser =
                           isNewUser;
                       AppRoute.push(context: event.context, page: Pages.otp);
@@ -65,6 +67,12 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
                 context: event.context,
                 page: Pages.signIn,
               );
+            }
+            break;
+          case CitySelect():
+            {
+              city = event.city;
+              emit(SignUpInitial());
             }
             break;
         }

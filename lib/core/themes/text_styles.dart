@@ -52,6 +52,18 @@ abstract class TextStyles {
     fontSize: 15.sp,
     fontWeight: FontWeight.bold,
   );
+
+  static TextStyle tsW18B = TextStyle(
+    color: ColorsManger.white,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle tsW20B = TextStyle(
+    color: ColorsManger.white,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.bold,
+  );
   static TextStyle tsW12B = TextStyle(
     color: ColorsManger.white,
     fontSize: 12.sp,

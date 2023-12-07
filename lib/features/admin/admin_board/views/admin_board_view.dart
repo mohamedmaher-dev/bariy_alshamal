@@ -1,6 +1,7 @@
 import 'package:bariy_alshamal/features/admin/add_product/presntation/views/add_product_view.dart';
 import 'package:bariy_alshamal/features/admin/orders/presntation/views/orders_view.dart';
 import 'package:bariy_alshamal/features/admin/products/presntation/views/admin_products_view.dart';
+import 'package:bariy_alshamal/features/admin/promo_code/presentation/views/promo_code_view.dart';
 import 'package:bariy_alshamal/features/admin/users/presntation/views/users_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,6 +40,7 @@ class _AdminBoardViewState extends State<AdminBoardView> {
               AdminProductsView(),
               OrdersView(),
               UsersView(),
+              PromoCodeView(),
             ],
           );
         },
