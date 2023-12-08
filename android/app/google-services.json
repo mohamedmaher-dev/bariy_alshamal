@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "88918746032",
-    "project_id": "bariy-alshamal-test",
-    "storage_bucket": "bariy-alshamal-test.appspot.com"
+    "project_number": "705514656831",
+    "project_id": "bariy-alshamal",
+    "storage_bucket": "bariy-alshamal.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:88918746032:android:38f45128aeba76319dac75",
+        "mobilesdk_app_id": "1:705514656831:android:70d0f2ae334b601266548a",
         "android_client_info": {
           "package_name": "com.bariyalshamal.maher"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBXfjzilS9wYegWQTkAC78nL5xmqyYf38g"
+          "current_key": "AIzaSyDdSMYfcuOipppxwSYTyu8Nnhmi9Ljbwco"
         }
       ],
       "services": {

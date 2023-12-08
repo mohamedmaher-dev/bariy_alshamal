@@ -1,4 +1,4 @@
 abstract class AppManger {
-  static bool isAdmin = true;
+  static bool isAdmin = false;
   static bool isLogin = false;
 }
