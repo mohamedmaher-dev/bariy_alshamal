@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBXfjzilS9wYegWQTkAC78nL5xmqyYf38g',
-    appId: '1:88918746032:android:38f45128aeba76319dac75',
-    messagingSenderId: '88918746032',
-    projectId: 'bariy-alshamal-test',
-    storageBucket: 'bariy-alshamal-test.appspot.com',
+    apiKey: 'AIzaSyDdSMYfcuOipppxwSYTyu8Nnhmi9Ljbwco',
+    appId: '1:705514656831:android:70d0f2ae334b601266548a',
+    messagingSenderId: '705514656831',
+    projectId: 'bariy-alshamal',
+    storageBucket: 'bariy-alshamal.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBMV4qYxArS24iitp7vMUA5av1RQFtTU-E',
-    appId: '1:88918746032:ios:11cbe3e1d33106219dac75',
-    messagingSenderId: '88918746032',
-    projectId: 'bariy-alshamal-test',
-    storageBucket: 'bariy-alshamal-test.appspot.com',
+    apiKey: 'AIzaSyDM8U6VxrhPVFiKM89uwk9avnSfSqkH57w',
+    appId: '1:705514656831:ios:71e72a8d42b7022e66548a',
+    messagingSenderId: '705514656831',
+    projectId: 'bariy-alshamal',
+    storageBucket: 'bariy-alshamal.appspot.com',
     iosBundleId: 'com.bariyalshamal.maher',
   );
 }
