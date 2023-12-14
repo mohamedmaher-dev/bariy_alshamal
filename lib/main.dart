@@ -1,4 +1,6 @@
 import 'package:bariy_alshamal/bariy_alshamal.dart';
+import 'package:bariy_alshamal/core/utils/fcm_manger.dart';
+import 'package:bariy_alshamal/core/utils/print.dart';
 import 'package:bariy_alshamal/features/admin/add_product/presntation/view_model/add_product_bloc/add_product_bloc.dart';
 import 'package:bariy_alshamal/features/admin/admin_board/view_model/admin_board_bloc/admin_board_bloc.dart';
 import 'package:bariy_alshamal/features/admin/orders/presntation/view_model/orders/orders_bloc.dart';
@@ -15,14 +17,27 @@ import 'package:bariy_alshamal/features/one_product/presntation/view_model/one_p
 import 'package:bariy_alshamal/features/products/presentation/view_model/products_bloc/products_bloc.dart';
 import 'package:bariy_alshamal/features/splash/view_model/bloc/splash_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/home/presentation/view_model/home_bloc/home_bloc.dart';
 import 'firebase_options.dart';
 
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  if (message.notification != null) {
+    DebugPrint.white(message.toMap().toString());
+  } else {
+    DebugPrint.error("Background FCM Not Working");
+  }
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  await FCMManger.init();
+
   runApp(
     MultiBlocProvider(
       providers: [

@@ -1,9 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:bariy_alshamal/core/utils/app_route.dart';
 import 'package:bariy_alshamal/core/utils/popup_loading_manger.dart';
 import 'package:bariy_alshamal/core/utils/print.dart';
 import 'package:bariy_alshamal/features/admin/orders/presntation/data/models/orders_list_model.dart';
 import 'package:bariy_alshamal/features/admin/orders/presntation/data/rebo/orders_rebo.dart';
 import 'package:bariy_alshamal/features/admin/orders/presntation/data/rebo/rebos/orders_remote_rebo.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'orders_event.dart';
@@ -19,8 +23,10 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
           {
             await getOrders(emit);
           }
+          break;
         case DeleteOrderEvent():
           {
+            AppRoute.pop(context: event.context);
             PopUpLoading.loading();
             try {
               await orderRebo.deleteOrder(orderID: event.orderID);
@@ -30,6 +36,24 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
               PopUpLoading.error("حدث خطأ ما");
             }
           }
+          break;
+        case ChangeOrderStatus():
+          {
+            AppRoute.pop(context: event.context);
+
+            PopUpLoading.loading();
+            try {
+              await orderRebo.changeStatus(
+                newStatus: event.newStatus,
+                orderDocID: event.orderDocID,
+              );
+              await getOrders(emit);
+              PopUpLoading.success("تم تعديل الطلب بنجاح");
+            } catch (e) {
+              PopUpLoading.error("حدث خطأ ما");
+            }
+          }
+          break;
       }
     });
   }

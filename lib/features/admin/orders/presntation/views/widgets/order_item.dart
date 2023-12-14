@@ -1,163 +1,152 @@
-import 'package:bariy_alshamal/core/utils/app_route.dart';
 import 'package:bariy_alshamal/features/admin/orders/presntation/data/models/order_model.dart';
 import 'package:bariy_alshamal/features/admin/orders/presntation/view_model/orders/orders_bloc.dart';
+import 'package:bariy_alshamal/features/admin/orders/presntation/views/widgets/more_body.dart';
+import 'package:bariy_alshamal/features/admin/orders/presntation/views/widgets/order_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:jiffy/jiffy.dart';
 import '../../../../../../core/themes/colors_manger.dart';
-import 'field_item.dart';
+import '../../../../../../core/themes/text_styles.dart';
 
 class OrderItem extends StatelessWidget {
-  const OrderItem(
-      {super.key, required this.orderModel, required this.controller});
+  const OrderItem({
+    super.key,
+    required this.orderModel,
+    required this.controller,
+  });
   final OrderModel orderModel;
   final OrdersBloc controller;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: ColorsManger.green,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.r),
+    return GestureDetector(
+      onTap: () {
+        showModalBottomSheet(
+          showDragHandle: true,
+          context: context,
+          builder: (context) => OrderBody(orderModel: orderModel),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.r),
+          color: ColorsManger.green,
         ),
-      ),
-      child: ListView(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          Row(
-            children: [
-              FieldItem(title: "اسم المنتج", value: orderModel.productName),
-              FieldItem(
-                title: "تكلفة المنتج",
-                value: orderModel.price.toString(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ListTile(
+              leading: const Icon(
+                Icons.numbers,
+                color: ColorsManger.white,
               ),
-            ],
-          ),
-          Row(
-            children: [
-              FieldItem(
-                title: "الكمية",
-                value: orderModel.count.toString(),
+              title: Text(
+                orderModel.orderID,
+                style: TextStyles.tsW15B,
               ),
-              FieldItem(
-                title: "تاريخ الطلب",
-                value:
-                    "${orderModel.date.year}/${orderModel.date.month}/${orderModel.date.day}",
+              subtitle: Text(
+                "الرقم التعريفي للطلب",
+                style: TextStyles.tsG10B,
               ),
-            ],
-          ),
-          const Divider(),
-          Row(
-            children: [
-              FieldItem(title: "الحجم", value: orderModel.size ?? "-"),
-              FieldItem(title: "الرأس", value: orderModel.head ?? "-"),
-            ],
-          ),
-          Row(
-            children: [
-              FieldItem(
-                  title: "طريقة التغليف", value: orderModel.package ?? "-"),
-              FieldItem(title: "مفروم", value: orderModel.mafroum ?? "-"),
-            ],
-          ),
-          Row(
-            children: [
-              FieldItem(title: "طريقة التقطيع", value: orderModel.cut ?? "-"),
-            ],
-          ),
-          Row(
-            children: [
-              FieldItem(title: "ملاحظة", value: orderModel.note ?? "-"),
-            ],
-          ),
-          const Divider(),
-          Row(
-            children: [
-              FieldItem(title: "اسم العميل", value: orderModel.userName),
-              FieldItem(
-                title: "رقم العميل",
-                value:
-                    "0${orderModel.userPhone.toString().replaceRange(0, 4, "")}",
+              trailing: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: ColorsManger.white,
               ),
-            ],
-          ),
-          const Divider(),
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(10.w),
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      double lat = orderModel.location.lat;
-                      double long = orderModel.location.long;
-                      Uri url = Uri.parse(
-                          "https://www.google.com/maps/dir/?api=1&origin=$lat,$long");
-                      launchUrl(url);
-                    },
-                    icon: const Icon(
-                      Icons.location_pin,
+            ),
+            const Divider(),
+            Row(
+              children: [
+                Expanded(
+                  child: ListTile(
+                    leading: const Icon(
+                      Icons.grid_view_rounded,
+                      color: ColorsManger.white,
                     ),
-                    label: const Text("عرض الموقع"),
-                    style: const ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(ColorsManger.gold),
-                      foregroundColor:
-                          MaterialStatePropertyAll(ColorsManger.white),
+                    title: Text(
+                      orderModel.productsCount.toString(),
+                      style: TextStyles.tsW15B,
+                    ),
+                    subtitle: Text(
+                      "المنتجات",
+                      style: TextStyles.tsG10B,
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(10.w),
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (contextDialog) => AlertDialog(
-                          title: const Text("حذف الطلب"),
-                          content: const Text("هل تريد حقا حذف الطلب"),
-                          actions: [
-                            ElevatedButton(
-                              style: const ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(ColorsManger.red),
-                                foregroundColor: MaterialStatePropertyAll(
-                                  ColorsManger.white,
-                                ),
-                              ),
-                              onPressed: () {
-                                AppRoute.pop(context: contextDialog);
-                                controller.add(
-                                  DeleteOrderEvent(
-                                    orderID: orderModel.orderID,
-                                  ),
-                                );
-                              },
-                              child: const Text("حذف"),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    icon: const Icon(
-                      Icons.delete,
+                Expanded(
+                  child: ListTile(
+                    leading: const Icon(
+                      Icons.monetization_on,
+                      color: ColorsManger.white,
                     ),
-                    label: const Text("حذف"),
-                    style: const ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(ColorsManger.red),
-                      foregroundColor:
-                          MaterialStatePropertyAll(ColorsManger.white),
+                    title: Text(
+                      orderModel.orderPrice.toString(),
+                      style: TextStyles.tsW15B,
+                    ),
+                    subtitle: Text(
+                      "تكلفة الطلب",
+                      style: TextStyles.tsG10B,
                     ),
                   ),
                 ),
+                Expanded(
+                  child: ListTile(
+                    leading: const Icon(
+                      Icons.discount_rounded,
+                      color: ColorsManger.white,
+                    ),
+                    title: Text(
+                      orderModel.discount.toString(),
+                      style: TextStyles.tsW15B,
+                    ),
+                    subtitle: Text(
+                      "الخصم",
+                      style: TextStyles.tsG10B,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(
+                Icons.calendar_month,
+                color: ColorsManger.white,
               ),
-            ],
-          )
-        ],
+              title: Text(
+                Jiffy.parse(orderModel.date.toString()).yMMMMEEEEdjm,
+                style: TextStyles.tsW15B,
+              ),
+              subtitle: Text(
+                "تاريخ الطلب بتوقيت جرينتش",
+                style: TextStyles.tsG10B,
+              ),
+            ),
+            const Divider(),
+            Padding(
+              padding: EdgeInsets.all(10.w),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        showModalBottomSheet(
+                          showDragHandle: true,
+                          context: context,
+                          builder: (context) => MoreBody(
+                            orderModel: orderModel,
+                            controller: controller,
+                            orderDocID: orderModel.orderDocID,
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.more_horiz_rounded),
+                      label: const Text("المزيد"),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

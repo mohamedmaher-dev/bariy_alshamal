@@ -14,4 +14,12 @@ class OrdersRemoteRebo implements OrderRebo {
       return value.docs;
     });
   }
+
+  @override
+  Future<void> changeStatus(
+      {required int newStatus, required String orderDocID}) async {
+    await store.collection("orders").doc(orderDocID).update(
+      {"status": newStatus},
+    );
+  }
 }
