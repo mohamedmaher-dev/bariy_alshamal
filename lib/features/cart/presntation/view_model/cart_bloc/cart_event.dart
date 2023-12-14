@@ -18,3 +18,5 @@ final class GoToLogin extends CartEvent {
 }
 
 final class UsePromoCode extends CartEvent {}
+
+final class PickBankInvoive extends CartEvent {}

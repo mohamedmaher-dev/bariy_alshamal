@@ -1,8 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages, unnecessary_import, use_build_context_synchronously
-
 import 'package:bariy_alshamal/core/utils/app_manger.dart';
 import 'package:bariy_alshamal/core/utils/app_route.dart';
 import 'package:bariy_alshamal/core/utils/popup_loading_manger.dart';
+import 'package:bariy_alshamal/core/utils/print.dart';
 import 'package:bariy_alshamal/features/cart/data/models/cart_item_list_model.dart';
 import 'package:bariy_alshamal/features/cart/data/rebos/cart_rebo.dart';
 import 'package:bariy_alshamal/features/cart/data/rebos/rebos/cart_remote_rebo.dart';
@@ -56,25 +56,34 @@ class CartBloc extends Bloc<CartEvent, CartState> {
                 PopUpLoading.loading();
                 try {
                   await cartRebo.addOrder(
-                    cartItems: cartItems,
-                    itemCount: cartItems.list.length,
-                    promoCodeValue: promoCodeValue,
-                    promoCode: promoCode == null ? null : promoCode!.code,
+                    bank: (
+                      accountName: "null",
+                      accountNum: "null",
+                      bankName: "null",
+                      screenUrl:
+                          "null" //await cartRebo.uploadImage(file: bankInvoive!),
+                    ),
+                    orderInfo: (
+                      orderID: cartRebo.createOrderID(),
+                      orderprice: totalPrice
+                    ),
+                    promoCode: (discount: promoCodeValue, promoCodeID: null),
+                    items: cartRebo.getProducts(cartItems: cartItems),
                     location: myLocation!,
+                    userCity: await cartRebo.getUserCity(),
                   );
-                  try {
-                    await cartRebo.deleteCart(cartItems: cartItems);
-                  } catch (e) {
-                    PopUpLoading.error("حدث خطأ ما");
-                  }
+                  await cartRebo.deleteCart(cartItems: cartItems);
                   await getCartItems(emit);
                   PopUpLoading.success("تم تأكيد الطلب بنجاح");
                 } catch (e) {
                   PopUpLoading.error("حدث خطأ ما");
+                  DebugPrint.error(e.toString());
                 }
                 PopUpLoading.dismiss();
               } else {
-                PopUpLoading.error("برجاء تحديد الموقع");
+                PopUpLoading.error(
+                  "برجاء التأكد من تحديد الموقع و معلومات الدفع",
+                );
               }
             }
             break;
@@ -113,6 +122,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
                 }
               }
               await getCartItems(emit);
+            }
+            break;
+          case PickBankInvoive():
+            {
+              // bankInvoive = await cartRebo.pickImage();
+              // if (bankInvoive != null) {
+              //   PopUpLoading.success("تم اختيار الصورة بنجاح");
+              // }
             }
             break;
         }

@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 2.0.0+2
 
 environment:
   sdk: '>=3.1.5 <4.0.0'
@@ -57,6 +57,9 @@ dependencies:
   cached_network_image: ^3.3.0
   url_launcher: ^6.2.1
   geolocator: ^10.1.0
+  jiffy: ^6.2.1
+  firebase_messaging: ^14.7.9
+  dio: ^5.4.0
 
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -106,9 +109,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
-  #   - family: Schyler
+  #   - family: Almarai
   #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: assets/fonts/Almarai-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
