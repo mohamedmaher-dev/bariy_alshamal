@@ -25,6 +25,11 @@ class CartButtomBody extends StatelessWidget {
               foregroundColor: MaterialStatePropertyAll(ColorsManger.white),
             ),
             onPressed: () {
+              // showModalBottomSheet(
+              //   showDragHandle: true,
+              //   context: context,
+              //   builder: (context) => BankBody(controller: controller),
+              // );
               controller.add(ConfirmCart());
             },
             icon: const Icon(Icons.done_all),

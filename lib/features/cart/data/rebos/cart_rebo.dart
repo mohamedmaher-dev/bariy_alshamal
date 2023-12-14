@@ -8,12 +8,20 @@ abstract class CartRebo {
   Future deleteCartItem({required String cartItemID});
 
   Future addOrder({
-    required CartItemListModel cartItems,
-    required int promoCodeValue,
-    required int itemCount,
-    required String? promoCode,
+    required ({String orderID, int orderprice}) orderInfo,
+    required ({String? promoCodeID, int discount}) promoCode,
+    required ({
+      String accountName,
+      String accountNum,
+      String bankName,
+      String screenUrl
+    }) bank,
+    required String userCity,
     required LatLng location,
+    required List<Map> items,
   });
+
+  Future setPromoCodeNotActive({required String? promoCode});
 
   Future deleteCart({
     required CartItemListModel cartItems,
@@ -22,4 +30,13 @@ abstract class CartRebo {
   Future<({String code, bool isActive, int value})?> getPromoCode({
     required String code,
   });
+
+  List<Map> getProducts({required CartItemListModel cartItems});
+  String createOrderID();
+
+  Future<String> getUserCity();
+
+  // Future<File?> pickImage();
+
+  // Future<String> uploadImage({required File file});
 }

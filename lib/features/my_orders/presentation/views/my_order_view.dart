@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/themes/text_styles.dart';
+import '../../../../core/utils/app_route.dart';
 
 class MyOrdersView extends StatefulWidget {
   const MyOrdersView({super.key});
@@ -42,9 +43,14 @@ class _MyOrdersViewState extends State<MyOrdersView> {
               return ListView.builder(
                 itemCount: controller.orders.list.length,
                 itemBuilder: (context, index) => MyOrderItem(
-                  count: controller.orders.list[index].count.toString(),
-                  price: controller.orders.list[index].price.toString(),
-                  productName: controller.orders.list[index].productName,
+                  index: index,
+                  controller: controller,
+                  date: controller.orders.list[index].date,
+                  discount: controller.orders.list[index].discount,
+                  count: controller.orders.list[index].productsCount.toString(),
+                  price: controller.orders.list[index].orderPrice.toString(),
+                  productName: controller.orders.list[index].orderID,
+                  status: controller.orders.list[index].status,
                 ),
               );
             case MyOrdersFailed():
@@ -56,7 +62,9 @@ class _MyOrdersViewState extends State<MyOrdersView> {
             case MyOrdersNeedLoging():
               return Center(
                 child: ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    AppRoute.push(context: context, page: Pages.signIn);
+                  },
                   icon: const Icon(Icons.add),
                   label: Text(
                     "يجب تسجيل الدخول",

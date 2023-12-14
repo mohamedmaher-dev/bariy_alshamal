@@ -31,6 +31,14 @@ class OneProductBloc extends Bloc<OneProductEvent, OneProductState> {
         switch (event) {
           case OneProductInitEvent():
             {
+              noteController.clear();
+              totlaPrice = 0;
+              count = 1;
+              size = (details: null, price: 0);
+              cuttings = (details: null, price: 0);
+              packages = (details: null, price: 0);
+              mafroum = (details: null, price: 0);
+              head = (details: null, price: 0);
               calcTotalPrice();
               emit(OneProductInitial());
             }

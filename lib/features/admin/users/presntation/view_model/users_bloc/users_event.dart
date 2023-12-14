@@ -4,3 +4,5 @@ part of 'users_bloc.dart';
 sealed class UsersEvent {}
 
 final class UsersInitEvent extends UsersEvent {}
+
+final class SendNotifi extends UsersEvent {}
