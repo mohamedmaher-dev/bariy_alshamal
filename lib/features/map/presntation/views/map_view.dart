@@ -35,7 +35,8 @@ class _MyMapViewState extends State<MyMapView> {
               LocationPermission permission =
                   await Geolocator.checkPermission();
               if (locationIsEnable) {
-                if (permission == LocationPermission.always) {
+                if (permission == LocationPermission.whileInUse ||
+                    permission == LocationPermission.always) {
                   Position myPostion = await Geolocator.getCurrentPosition();
                   setState(() {
                     postion = LatLng(myPostion.latitude, myPostion.longitude);

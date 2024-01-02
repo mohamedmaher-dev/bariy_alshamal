@@ -12,10 +12,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final List<({int? type, String name})> categorys = [
     (type: 0, name: "نعيمي"),
     (type: 1, name: "منتجات الاغنام"),
-    (type: null, name: "تيس"),
-    (type: null, name: "نجدي"),
-    (type: null, name: "عجل"),
-    (type: null, name: "حاشي"),
+    // (type: null, name: "تيس"),
+    // (type: null, name: "نجدي"),
+    // (type: null, name: "عجل"),
+    // (type: null, name: "حاشي"),
   ];
   late int? categorySelect;
 
