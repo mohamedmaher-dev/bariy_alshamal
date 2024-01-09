@@ -51,7 +51,7 @@ class _AdminProductsViewState extends State<AdminProductsView> {
                 itemCount: controller.products.list.length,
               );
             case AdminProductsEmpty():
-              return const EmptyViwe();
+              return const EmptyViwe(arText: "", enText: "");
             case AdminProductsFailed():
               return const Center(
                 child: Icon(Icons.error),

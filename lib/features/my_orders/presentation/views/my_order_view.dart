@@ -58,7 +58,10 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                 child: Icon(Icons.error),
               );
             case MyOrdersEmpty():
-              return const EmptyViwe();
+              return const EmptyViwe(
+                arText: "لا يوجد لديك طلبات في الوقت الحالي",
+                enText: "You Have No Orders At The Moment",
+              );
             case MyOrdersNeedLoging():
               return Center(
                 child: ElevatedButton.icon(

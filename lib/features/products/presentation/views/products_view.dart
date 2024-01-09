@@ -55,7 +55,10 @@ class _ProductsViewState extends State<ProductsView> {
                 child: Icon(Icons.error),
               );
             case ProductsEmpty():
-              return const EmptyViwe();
+              return const EmptyViwe(
+                arText: "لا يوجد منتجات في هذا القسم الأن",
+                enText: "No Products In This Category Now",
+              );
           }
         },
       ),

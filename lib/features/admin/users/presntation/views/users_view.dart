@@ -101,7 +101,7 @@ class _UsersViewState extends State<UsersView> {
                 child: Icon(Icons.error),
               );
             case UsersEmpty():
-              return const EmptyViwe();
+              return const EmptyViwe(arText: "", enText: "");
           }
         },
       ),

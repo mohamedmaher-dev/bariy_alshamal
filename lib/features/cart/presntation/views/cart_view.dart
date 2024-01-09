@@ -105,7 +105,10 @@ class _CartViewState extends State<CartView> {
                 child: Icon(Icons.error),
               );
             case CartEmpty():
-              return const EmptyViwe();
+              return const EmptyViwe(
+                arText: "لا يوجد منتجات في السلة",
+                enText: "No Items In Cart",
+              );
             case CartNeedLogin():
               return Center(
                 child: ElevatedButton.icon(
