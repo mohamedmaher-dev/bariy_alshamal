@@ -80,7 +80,7 @@ class _PromoCodeViewState extends State<PromoCodeView> {
                 itemCount: controller.promoCodes.list.length,
               );
             case PromoCodeEmpty():
-              return const EmptyViwe();
+              return const EmptyViwe(arText: "", enText: "");
           }
         },
       ),

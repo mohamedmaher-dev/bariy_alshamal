@@ -55,7 +55,7 @@ class _OrdersViewState extends State<OrdersView> {
                 child: Icon(Icons.error),
               );
             case OrdersEmpty():
-              return const EmptyViwe();
+              return const EmptyViwe(arText: "", enText: "");
           }
         },
       ),

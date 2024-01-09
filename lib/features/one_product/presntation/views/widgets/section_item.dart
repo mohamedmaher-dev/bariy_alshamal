@@ -37,13 +37,18 @@ class SectionItem extends StatelessWidget {
                     style: TextStyles.tsW15B,
                   ),
                 ),
-                IconButton(
-                  onPressed: (onDelete),
-                  icon: const Icon(
-                    Icons.delete,
-                    color: ColorsManger.red,
-                  ),
-                )
+                groupValue != null
+                    ? IconButton(
+                        onPressed: (onDelete),
+                        icon: const Icon(
+                          Icons.clear_rounded,
+                          color: ColorsManger.red,
+                        ),
+                      )
+                    : const IconButton(
+                        onPressed: null,
+                        icon: SizedBox.shrink(),
+                      )
               ],
             ),
           ),
