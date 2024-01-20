@@ -8,6 +8,7 @@ import 'package:bariy_alshamal/core/widgets/app_bar_view.dart';
 import 'package:bariy_alshamal/features/my_account/presentation/views/widgets/we_item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -116,8 +117,10 @@ class MyAccountView extends StatelessWidget {
                       if (await canLaunchUrl(emailLaunchUri)) {
                         launchUrl(emailLaunchUri);
                       } else {
-                        PopUpLoading.error(
-                            "برجاء تثبيت تطبيق للبريد الألكتروني");
+                        await Clipboard.setData(
+                          const ClipboardData(text: "albiji95@gmail.com"),
+                        );
+                        PopUpLoading.success("تم نسخ البريد الألكتروني بنجاح");
                       }
                     },
                   ),
