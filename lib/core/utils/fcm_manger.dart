@@ -9,7 +9,6 @@ abstract class FCMManger {
   static final FirebaseMessaging _fcm = FirebaseMessaging.instance;
   static init() async {
     await _requestPermission();
-    await _getToken();
     await _foregroundFCM();
     await _subscribeToAll();
   }
@@ -44,11 +43,6 @@ abstract class FCMManger {
 
   static Future<void> _subscribeToAll() async {
     await _fcm.subscribeToTopic("all");
-  }
-
-  static Future<void> _getToken() async {
-    String? token = await _fcm.getToken();
-    DebugPrint.success(token.toString());
   }
 
   static send({required String title, required String body}) async {
