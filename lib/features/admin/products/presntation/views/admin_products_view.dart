@@ -3,6 +3,7 @@ import 'package:bariy_alshamal/core/widgets/empty_view.dart';
 import 'package:bariy_alshamal/features/admin/products/presntation/view_model/bloc/admin_products_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../admin_board/views/widgets/admin_drawer.dart';
 import 'widgets/admin_product_item.dart';
 
 class AdminProductsView extends StatefulWidget {
@@ -24,6 +25,7 @@ class _AdminProductsViewState extends State<AdminProductsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const AdminDrawer(),
       appBar: const AppBarView(title: "المنتجات"),
       body: BlocBuilder<AdminProductsBloc, AdminProductsState>(
         builder: (context, state) {

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../admin_board/views/widgets/admin_drawer.dart';
 import 'widgets/order_item.dart';
 
 class OrdersView extends StatefulWidget {
@@ -28,6 +29,7 @@ class _OrdersViewState extends State<OrdersView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const AdminDrawer(),
       appBar: const AppBarView(title: "طلباتي"),
       body: BlocBuilder<OrdersBloc, OrdersState>(
         builder: (context, state) {

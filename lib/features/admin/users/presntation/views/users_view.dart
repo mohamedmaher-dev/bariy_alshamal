@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../admin_board/views/widgets/admin_drawer.dart';
 import 'widgets/user_item.dart';
 
 class UsersView extends StatefulWidget {
@@ -28,6 +29,7 @@ class _UsersViewState extends State<UsersView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const AdminDrawer(),
       appBar: AppBarView(
         title: "العملاء",
         actions: [

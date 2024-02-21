@@ -2,12 +2,12 @@ import 'package:bariy_alshamal/features/admin/add_product/presntation/views/add_
 import 'package:bariy_alshamal/features/admin/orders/presntation/views/orders_view.dart';
 import 'package:bariy_alshamal/features/admin/products/presntation/views/admin_products_view.dart';
 import 'package:bariy_alshamal/features/admin/promo_code/presentation/views/promo_code_view.dart';
+import 'package:bariy_alshamal/features/admin/slider_manger/views/slider_manger_view.dart';
 import 'package:bariy_alshamal/features/admin/users/presntation/views/users_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../view_model/admin_board_bloc/admin_board_bloc.dart';
-import 'admin_buttom_nav_bar_view.dart';
 
 class AdminBoardView extends StatefulWidget {
   const AdminBoardView({super.key});
@@ -27,7 +27,7 @@ class _AdminBoardViewState extends State<AdminBoardView> {
   Widget build(BuildContext context) {
     AdminBoardBloc controller = BlocProvider.of<AdminBoardBloc>(context);
     return Scaffold(
-      bottomNavigationBar: const AdminButtomNavBarView(),
+      // bottomNavigationBar: const AdminButtomNavBarView(),
       body: BlocBuilder<AdminBoardBloc, AdminBoardState>(
         builder: (context, state) {
           return PageView(
@@ -41,6 +41,7 @@ class _AdminBoardViewState extends State<AdminBoardView> {
               OrdersView(),
               UsersView(),
               PromoCodeView(),
+              SliderManger(),
             ],
           );
         },

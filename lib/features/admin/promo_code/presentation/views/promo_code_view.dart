@@ -7,6 +7,8 @@ import 'package:bariy_alshamal/features/admin/promo_code/presentation/views/widg
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../admin_board/views/widgets/admin_drawer.dart';
+
 class PromoCodeView extends StatefulWidget {
   const PromoCodeView({super.key});
 
@@ -27,6 +29,7 @@ class _PromoCodeViewState extends State<PromoCodeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const AdminDrawer(),
       appBar: const AppBarView(title: "اكواد الخصم"),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorsManger.green,

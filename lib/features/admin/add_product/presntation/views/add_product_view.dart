@@ -10,6 +10,7 @@ import 'package:bariy_alshamal/features/admin/add_product/presntation/views/widg
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/themes/colors_manger.dart';
+import '../../../admin_board/views/widgets/admin_drawer.dart';
 
 class AddProductView extends StatelessWidget {
   const AddProductView({super.key});
@@ -21,6 +22,7 @@ class AddProductView extends StatelessWidget {
     return BlocBuilder<AddProductBloc, AddProductState>(
       builder: (context, state) {
         return Scaffold(
+          drawer: const AdminDrawer(),
           appBar: AppBarView(
             title: "اضافة منتج",
             actions: [
