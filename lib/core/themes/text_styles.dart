@@ -115,6 +115,11 @@ abstract class TextStyles {
     fontSize: 10.sp,
     fontWeight: FontWeight.bold,
   );
+  static TextStyle tsR12B = TextStyle(
+    color: ColorsManger.red,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.bold,
+  );
   static TextStyle tsR15N = TextStyle(
     color: ColorsManger.red,
     fontSize: 15.sp,

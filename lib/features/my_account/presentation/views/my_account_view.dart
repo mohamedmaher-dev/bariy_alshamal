@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:bariy_alshamal/core/assets/assets_manger.dart';
 import 'package:bariy_alshamal/core/themes/colors_manger.dart';
 import 'package:bariy_alshamal/core/themes/text_styles.dart';
@@ -6,6 +8,7 @@ import 'package:bariy_alshamal/core/utils/app_route.dart';
 import 'package:bariy_alshamal/core/utils/popup_loading_manger.dart';
 import 'package:bariy_alshamal/core/widgets/app_bar_view.dart';
 import 'package:bariy_alshamal/features/my_account/presentation/views/widgets/we_item.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -233,9 +236,11 @@ class MyAccountView extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(15.w),
             child: ElevatedButton.icon(
-              onPressed: () {
+              onPressed: () async {
                 if (AppManger.isLogin) {
-                  FirebaseAuth.instance.signOut();
+                  PopUpLoading.loading();
+                  await FirebaseAuth.instance.signOut();
+                  PopUpLoading.dismiss();
                   AppRoute.pushAndRemoveUntil(
                       context: context, page: Pages.splash);
                 } else {
@@ -245,17 +250,51 @@ class MyAccountView extends StatelessWidget {
               icon: Icon(AppManger.isLogin ? Icons.exit_to_app : Icons.add),
               label: Text(
                 AppManger.isLogin ? "تسجيل الخروج" : "تسجيل الدخول",
-                style: TextStyles.tsW12B,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12.sp,
+                ),
               ),
               style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(
+                backgroundColor:
+                    const MaterialStatePropertyAll(Colors.transparent),
+                elevation: const MaterialStatePropertyAll(0),
+                foregroundColor: MaterialStatePropertyAll(
                   AppManger.isLogin ? ColorsManger.red : ColorsManger.green,
                 ),
-                foregroundColor:
-                    const MaterialStatePropertyAll(ColorsManger.white),
               ),
             ),
-          )
+          ),
+          if (AppManger.isLogin)
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: ElevatedButton.icon(
+                onPressed: () async {
+                  if (AppManger.isLogin) {
+                    PopUpLoading.loading();
+                    await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(FirebaseAuth.instance.currentUser!.uid)
+                        .delete();
+                    await FirebaseAuth.instance.currentUser!.delete();
+                    PopUpLoading.dismiss();
+                    AppRoute.pushAndRemoveUntil(
+                        context: context, page: Pages.splash);
+                  } else {
+                    AppRoute.push(context: context, page: Pages.signIn);
+                  }
+                },
+                icon: const Icon(Icons.delete),
+                label: Text(
+                  'حذف الحساب',
+                  style: TextStyles.tsW12B,
+                ),
+                style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(ColorsManger.red),
+                  foregroundColor: MaterialStatePropertyAll(ColorsManger.white),
+                ),
+              ),
+            )
         ],
       ),
     );

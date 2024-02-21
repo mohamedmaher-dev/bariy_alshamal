@@ -30,7 +30,10 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
           case (OtpInitEvent()):
             {
               timeLeft = 60;
-              otpRebos.sendSms(userPhone: userPhone, context: event.context);
+              await otpRebos.sendSms(
+                userPhone: userPhone,
+                context: event.context,
+              );
             }
             break;
           case (PhoneIncorrectClick()):
@@ -60,20 +63,25 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
                         countryCode: 966,
                         city: city,
                       );
-                      auth.currentUser!.updateDisplayName(userName);
+                      await auth.currentUser!.updateDisplayName(userName);
                     }
                     AppRoute.pushAndRemoveUntil(
                       context: event.context,
                       page: Pages.splash,
                     );
+                  } else {
+                    DebugPrint.error("userData is null");
                   }
                 } on FirebaseAuthException catch (e) {
                   PopUpLoading.error(e.message.toString());
+                  DebugPrint.error(e.toString());
                 } catch (e) {
                   DebugPrint.error(e.toString());
                   PopUpLoading.error("حدث خطأ ما");
                 }
                 PopUpLoading.dismiss();
+              } else {
+                DebugPrint.error("verificationId is null");
               }
             }
             break;

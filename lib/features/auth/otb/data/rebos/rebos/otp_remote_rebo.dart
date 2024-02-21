@@ -12,8 +12,11 @@ class OtpRemoteRebo implements OtpRebos {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore store = FirebaseFirestore.instance;
   @override
-  sendSms({required int userPhone, required BuildContext context}) {
-    auth.verifyPhoneNumber(
+  Future<void> sendSms({
+    required int userPhone,
+    required BuildContext context,
+  }) async {
+    await auth.verifyPhoneNumber(
       phoneNumber: "+966$userPhone",
       codeSent: (verificationId, forceResendingToken) {
         BlocProvider.of<OtpBloc>(context).verificationId = verificationId;
@@ -44,14 +47,14 @@ class OtpRemoteRebo implements OtpRebos {
   }
 
   @override
-  createNewUser({
+  Future<void> createNewUser({
     required String userUID,
     required int userPhone,
     required String userName,
     required int countryCode,
     required String city,
-  }) {
-    store.collection(FireStoreCollection.users).doc(userUID).set({
+  }) async {
+    await store.collection(FireStoreCollection.users).doc(userUID).set({
       FireStoreFields.name: userName,
       FireStoreFields.phone: userPhone,
       FireStoreFields.countryCode: countryCode,
